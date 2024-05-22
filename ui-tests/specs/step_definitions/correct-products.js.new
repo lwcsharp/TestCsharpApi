@@ -1,0 +1,16 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
+Given('that I am on the product page', () => {
+  // TODO: implement step
+});
+
+When('I choose the category {string}', (a) => {
+  // TODO: implement step
+});
+
+Then('I should see the product {string}', (a) => {
+  // TODO: implement step
+});
+
+/* No duplicate steps, this one already above
+Then('I should see the product {string}', (a) => {});*/
