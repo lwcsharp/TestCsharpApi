@@ -51,7 +51,7 @@ jobs:
     #  GitHub Actions Windows Server runner image)
     - name: Run the endpoint tests
       shell: bash
-      run: cd endpoint-tests && npm test
+      run: cd endpoint-testing && npm test
 
     # Run the UI tests
     - name: Run the UI tests
