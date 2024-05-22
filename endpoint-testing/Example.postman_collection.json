@@ -1429,7 +1429,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user comments",
+					"name": "Create comments (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1485,7 +1485,7 @@
 									"\r",
 									"if(testData.commentsUserMakes[testData.counter])\r",
 									"{\r",
-									"    pm.execution.setNextRequest(\"Create user comments\");\r",
+									"    pm.execution.setNextRequest(\"Create comments (user)\");\r",
 									"}\r",
 									"else \r",
 									"{\r",
@@ -1530,7 +1530,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user products",
+					"name": "Create products (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1585,7 +1585,7 @@
 					"response": []
 				},
 				{
-					"name": "Create user categories",
+					"name": "Create categories (user)",
 					"event": [
 						{
 							"listen": "test",
@@ -1643,7 +1643,7 @@
 					"response": []
 				},
 				{
-					"name": "Get user comments",
+					"name": "Get comments (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1683,7 +1683,7 @@
 									"\r",
 									"if(testData.commentsUserMakes[testData.counter])\r",
 									"{\r",
-									"    pm.execution.setNextRequest(\"Get user comments\");\r",
+									"    pm.execution.setNextRequest(\"Get comments (user)\");\r",
 									"}\r",
 									"else \r",
 									"{\r",
@@ -1720,7 +1720,7 @@
 					"response": []
 				},
 				{
-					"name": "Get user products",
+					"name": "Get products (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1761,7 +1761,7 @@
 									"pm.collectionVariables.set(\"testData\",testData);\r",
 									"\r",
 									"if(testData.products[testData.counter]){\r",
-									"    pm.execution.setNextRequest(\"Get user products\");\r",
+									"    pm.execution.setNextRequest(\"Get products (user)\");\r",
 									"}\r",
 									"else \r",
 									"{\r",
@@ -1798,7 +1798,7 @@
 					"response": []
 				},
 				{
-					"name": "Get user categories",
+					"name": "Get categories (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1843,7 +1843,7 @@
 									"",
 									"if(testData.categories[testData.counter])",
 									"{",
-									"    pm.execution.setNextRequest(\"Get user categories\");",
+									"    pm.execution.setNextRequest(\"Get categories (user)\");",
 									"}",
 									"else ",
 									"{",
@@ -1880,7 +1880,7 @@
 					"response": []
 				},
 				{
-					"name": "Change user comments",
+					"name": "Change comments (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1944,7 +1944,7 @@
 					"response": []
 				},
 				{
-					"name": "Change user products",
+					"name": "Change products (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2003,7 +2003,7 @@
 					"response": []
 				},
 				{
-					"name": "Change user categories",
+					"name": "Change categories (user)",
 					"event": [
 						{
 							"listen": "test",
@@ -2062,7 +2062,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete user comments",
+					"name": "Delete user comments (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2120,7 +2120,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete user products",
+					"name": "Delete products (user)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2178,7 +2178,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete user categories",
+					"name": "Delete categories (user)",
 					"event": [
 						{
 							"listen": "test",
@@ -2276,7 +2276,7 @@
 			"name": "Visitor",
 			"item": [
 				{
-					"name": "Get visitor categories",
+					"name": "Get categories (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2320,7 +2320,7 @@
 									"",
 									"if(testData.categories[testData.counter])",
 									"{",
-									"    pm.execution.setNextRequest(\"Get visitor categories\");",
+									"    pm.execution.setNextRequest(\"Get categories (visitor)\");",
 									"}",
 									"else ",
 									"{",
@@ -2357,7 +2357,7 @@
 					"response": []
 				},
 				{
-					"name": "Get visitor products",
+					"name": "Get products (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2399,7 +2399,7 @@
 									"\r",
 									"if(testData.products[testData.counter])\r",
 									"{\r",
-									"    pm.execution.setNextRequest(\"Get visitor products\");\r",
+									"    pm.execution.setNextRequest(\"Get products (visitor)\");\r",
 									"}\r",
 									"else \r",
 									"{\r",
@@ -2436,7 +2436,7 @@
 					"response": []
 				},
 				{
-					"name": "Get visitor comments",
+					"name": "Get comments (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2478,7 +2478,7 @@
 									"\r",
 									"if(testData.commentsAdminMakes[testData.counter])\r",
 									"{\r",
-									"    pm.execution.setNextRequest(\"Get visitor comments\");\r",
+									"    pm.execution.setNextRequest(\"Get comments (visitor)\");\r",
 									"}\r",
 									"else \r",
 									"{\r",
@@ -2515,7 +2515,7 @@
 					"response": []
 				},
 				{
-					"name": "Create visitor categories",
+					"name": "Create categories (visitor)",
 					"event": [
 						{
 							"listen": "test",
@@ -2573,7 +2573,7 @@
 					"response": []
 				},
 				{
-					"name": "Create visitor products",
+					"name": "Create products (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2628,7 +2628,7 @@
 					"response": []
 				},
 				{
-					"name": "Create visitor comments",
+					"name": "Create comments (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2687,7 +2687,7 @@
 					"response": []
 				},
 				{
-					"name": "Change visitor categories",
+					"name": "Change categories (visitor)",
 					"event": [
 						{
 							"listen": "test",
@@ -2746,7 +2746,7 @@
 					"response": []
 				},
 				{
-					"name": "Change visitor products",
+					"name": "Change products (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2805,7 +2805,7 @@
 					"response": []
 				},
 				{
-					"name": "Change visitor comments",
+					"name": "Change comments (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2863,7 +2863,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete visitor categories",
+					"name": "Delete categories (visitor)",
 					"event": [
 						{
 							"listen": "test",
@@ -2921,7 +2921,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete visitor products",
+					"name": "Delete products (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2979,7 +2979,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete visitor comments",
+					"name": "Delete comments (visitor)",
 					"event": [
 						{
 							"listen": "prerequest",
