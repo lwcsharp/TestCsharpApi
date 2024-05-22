@@ -3083,7 +3083,6 @@
 									"let testData = pm.collectionVariables.get(\"testData\");",
 									"let comment = testData.commentsUserMakes[testData.counter];",
 									"",
-									"console.log(\"I AM A COMMENT FRAM DA UZER\", comment);",
 									"pm.environment.set(\"userCommentId\", comment.id);"
 								],
 								"type": "text/javascript",
@@ -3108,22 +3107,7 @@
 									"pm.test(\"Expect rowsAffected to equal 1\", () => ",
 									"{",
 									"    pm.expect(responseData.rowsAffected).to.equal(1);",
-									"});",
-									"",
-									"testData.counter++;",
-									"pm.collectionVariables.set(\"testData\", testData);",
-									"",
-									"if (testData.commentsUserMakes[testData.counter]) ",
-									"{",
-									"    pm.execution.setNextRequest(\"Delete user comments\");",
-									"} ",
-									"else ",
-									"{",
-									"    console.log(\"All comments have been deleted correctly.\");",
-									"    testData.counter = 0;",
-									"    pm.collectionVariables.set(\"testData\", testData);",
-									"}",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -3162,7 +3146,6 @@
 									"let testData = pm.collectionVariables.get(\"testData\");",
 									"let comment = testData.commentsAdminMakes[testData.counter];",
 									"",
-									"console.log(\"DA WHOLE TEST DATA BEFORE FINAL DELETE\",testData);",
 									"pm.environment.set(\"commentId\", comment.id);"
 								],
 								"type": "text/javascript",
@@ -3187,22 +3170,7 @@
 									"pm.test(\"Expect rowsAffected to equal 1\", () => ",
 									"{",
 									"    pm.expect(responseData.rowsAffected).to.equal(1);",
-									"});",
-									"",
-									"testData.counter++;",
-									"pm.collectionVariables.set(\"testData\", testData);",
-									"",
-									"if (testData.commentsAdminMakes[testData.counter]) ",
-									"{",
-									"    pm.execution.setNextRequest(\"Delete admin comments\");",
-									"} ",
-									"else ",
-									"{",
-									"    console.log(\"All comments have been deleted correctly.\");",
-									"    testData.counter = 0;",
-									"    pm.collectionVariables.set(\"testData\", testData);",
-									"}",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
