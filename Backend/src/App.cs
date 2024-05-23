@@ -15,3 +15,4 @@ Server.Start();
 // var a = new UtilsTest();
 // a.TestCreateMockUsers();
 // var addedUsers = WebApp.Utils.CreateMockUsers();
+//new UtilsTest().TestCreateMockUsers(); // Anropa testmetoden
