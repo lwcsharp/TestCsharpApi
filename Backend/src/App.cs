@@ -11,7 +11,8 @@ Globals = Obj(new
     sessionLifeTimeHours = 2
 });
 
-Server.Start();
+// Server.Start();
+Log(WebApp.Utils.CreateMockUsers());
 // var a = new UtilsTest();
 // a.TestCreateMockUsers();
 // var addedUsers = WebApp.Utils.CreateMockUsers();
