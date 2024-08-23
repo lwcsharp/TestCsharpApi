@@ -1,6 +1,6 @@
 namespace WebApp;
 
-public class UtilsTest(Xlog Console)
+public static class UtilsTest
 {
     // Read all mock users from file
     private static readonly Arr mockUsers = JSON.Parse(
@@ -14,7 +14,7 @@ public class UtilsTest(Xlog Console)
     [InlineData("abCd#fgh", false)] // no digit
     [InlineData("abc9#fgh", false)] // no capital letter
     [InlineData("abC9efgh", false)] // no special character
-    public void TestIsPasswordGoodEnough(string password, bool expected)
+    public static void TestIsPasswordGoodEnough(string password, bool expected)
     {
         Assert.Equal(expected, Utils.IsPasswordGoodEnough(password));
     }
@@ -26,7 +26,7 @@ public class UtilsTest(Xlog Console)
     [InlineData("abCd#fgh", false)] // no digit
     [InlineData("abc9#fgh", false)] // no capital letter
     [InlineData("abC9efgh", false)] // no special character
-    public void TestIsPasswordGoodEnoughRegexVersion(string password, bool expected)
+    public static void TestIsPasswordGoodEnoughRegexVersion(string password, bool expected)
     {
         Assert.Equal(expected, Utils.IsPasswordGoodEnoughRegexVersion(password));
     }
@@ -46,13 +46,13 @@ public class UtilsTest(Xlog Console)
         "Rhinos have a --- ---? (or what should I call it) on " +
             "their heads. And doorknobs are --- round."
     )]
-    public void TestRemoveBadWords(string replaceWith, string original, string expected)
+    public static void TestRemoveBadWords(string replaceWith, string original, string expected)
     {
         Assert.Equal(expected, Utils.RemoveBadWords(original, replaceWith));
     }
 
     [Fact]
-    public void TestCreateMockUsers()
+    public static void TestCreateMockUsers()
     {
         // Get all users from the database
         Arr usersInDb = SQLQuery("SELECT email FROM users");
@@ -72,6 +72,5 @@ public class UtilsTest(Xlog Console)
         Assert.Equivalent(mockUsersNotInDb, result);
         Console.WriteLine("The test passed!");
     }
-
     
 }

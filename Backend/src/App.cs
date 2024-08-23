@@ -10,10 +10,8 @@ Globals = Obj(new
     frontendPath = FilePath("..", "Frontend"),
     sessionLifeTimeHours = 2
 });
-
-// Server.Start();
+Server.Start();
 // Log(WebApp.Utils.CreateMockUsers());
-// var a = new UtilsTest();
-// a.TestCreateMockUsers();
-// var addedUsers = WebApp.Utils.CreateMockUsers();
-//new UtilsTest().TestCreateMockUsers(); // Anropa testmetoden
+UtilsTest.TestCreateMockUsers();
+var addedUsers = WebApp.Utils.CreateMockUsers();
+UtilsTest.TestCreateMockUsers(); // Anropa testmetoden
