@@ -10,8 +10,8 @@ Globals = Obj(new
     frontendPath = FilePath("..", "Frontend"),
     sessionLifeTimeHours = 2
 });
-Server.Start();
+Server.Start(); ////utkommentera: annars>ny commit>auto github actions
 // Log(WebApp.Utils.CreateMockUsers());
-UtilsTest.TestCreateMockUsers();
-var addedUsers = WebApp.Utils.CreateMockUsers();
-UtilsTest.TestCreateMockUsers(); // Anropa testmetoden
+// UtilsTest.TestCreateMockUsers();
+// var addedUsers = WebApp.Utils.CreateMockUsers();
+// UtilsTest.TestCreateMockUsers(); // Anropa testmetoden

@@ -65,4 +65,19 @@ public static class Utils
         return successFullyWrittenUsers;
     }
 
+    public static Arr RemoveMockUsers()
+    {
+        Arr removedUsersExclPassword = Arr();
+        foreach (var user in mockUsers)
+        {
+            var result = SQLQueryOne(
+                @"DELETE FROM users", user);         
+            if (!result.HasKey("error"))
+            {
+                user.Delete("password");
+                removedUsersExclPassword.Push(user);
+            }
+        }
+        return removedUsersExclPassword;
+    }
 }

@@ -67,10 +67,22 @@ public static class UtilsTest
         // newly created users in the db
         Console.WriteLine($"The test expected that {mockUsersNotInDb.Length} users should be added.");
         Console.WriteLine($"And {result.Length} users were added.");
-        Console.WriteLine("The test also asserts that the users added " +
-            "are equivalent (the same) as the expected users!");
+        Console.WriteLine("The test also asserts that the users added are equivalent (the same) as the expected users!");
         Assert.Equivalent(mockUsersNotInDb, result);
         Console.WriteLine("The test passed!");
     }
-    
+
+    [Fact]
+    public static void TestRemoveMockUsers()
+    {
+        Arr usersInDb = SQLQuery("SELECT email FROM users");
+        Arr emailsInDb = usersInDb.Map(user => user.email);
+        Arr mockUsersNotInDb = mockUsers.Filter( mockUser => !emailsInDb.Contains(mockUser.email));
+        var result = Utils.RemoveMockUsers();
+        Console.WriteLine($"The test expected that {mockUsersNotInDb.Length} users should be removed.");
+        Console.WriteLine($"And {result.Length} users were removed.");
+        Console.WriteLine("The test also asserts that the users added are equivalent (the same) as the expected users!");
+        Assert.Equivalent(mockUsersNotInDb, result);
+        Console.WriteLine("The test passed!");
+    }
 }
