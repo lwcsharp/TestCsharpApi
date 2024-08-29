@@ -79,10 +79,34 @@ public static class UtilsTest
         Arr emailsInDb = usersInDb.Map(user => user.email);
         Arr mockUsersNotInDb = mockUsers.Filter( mockUser => !emailsInDb.Contains(mockUser.email));
         var result = Utils.RemoveMockUsers();
-        Console.WriteLine($"The test expected that {mockUsersNotInDb.Length} users should be removed.");
-        Console.WriteLine($"And {result.Length} users were removed.");
-        Console.WriteLine("The test also asserts that the users added are equivalent (the same) as the expected users!");
-        Assert.Equivalent(mockUsersNotInDb, result);
-        Console.WriteLine("The test passed!");
+    }
+
+    [Fact]
+    public static void TestCountDomainsFromUserEmails()
+    {
+        var expectedResult = Utils.CountDomainsFromUserEmails();
+        Arr query = SQLQuery(
+            @"SELECT SUBSTR(email, INSTR(email, '@')+1) AS domains,
+            COUNT(*) AS counts
+            FROM users
+            GROUP BY domains
+            ;"
+        );
+
+        //Lagra SQL-resultatet i objekt
+        Obj result = Obj();
+        foreach (var domain in query)
+        {
+            string domains = domain["domains"]; //key => hämtar domänen
+            long counts = domain["counts"];    //value => hämtar räknaren
+
+            if (domains != null)
+            {
+            //Lägg till domänen & dess räknare i resultatobjektet
+            result[domains] = counts;
+            }
+        }
+        //Assert.Equal>> result ≠ expectedResult -> sorterad vs osorterad ej jämförtbart 
+        Assert.Equivalent(result, expectedResult); //jämförelse i samma format>> obj ≠ arr
     }
 }

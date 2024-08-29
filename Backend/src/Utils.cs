@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Components;
+
 namespace WebApp;
 
 public static class Utils
@@ -67,11 +69,13 @@ public static class Utils
 
     public static Arr RemoveMockUsers()
     {
+        CreateMockUsers();
         Arr removedUsersExclPassword = Arr();
         foreach (var user in mockUsers)
         {
             var result = SQLQueryOne(
-                @"DELETE FROM users", user);         
+                @"DELETE FROM users", user);      
+
             if (!result.HasKey("error"))
             {
                 user.Delete("password");
@@ -79,5 +83,37 @@ public static class Utils
             }
         }
         return removedUsersExclPassword;
+    }
+
+    public static Obj CountDomainsFromUserEmails()
+    {
+        //Skapa ett nytt objekt för att lagra domänräkningarna
+        Obj domainCounts = Obj();
+        
+        //Lagra alla användare från DB i lista av användarobjekt
+        Arr usersInDB = SQLQuery(
+            @"SELECT email
+            FROM users"
+        );
+
+        foreach (var user in usersInDB)
+        {
+            string email = user.email;
+            string domain = email.Substring(email.IndexOf('@')+1); //+1, metoden börjar extrahera från tecknet efter @ >> index = 0
+            
+            //Kontrollera om denna domän redan finns i domainCounts
+            if (domainCounts.HasKey(domain))
+            {
+                //Om domänen redan finns, öka räkningen för denna domän med 1
+                domainCounts[domain]++;
+            }
+            else
+            {
+                //Om domänen inte finns, lägg till den med en räkning på 1
+                domainCounts[domain] = 1;
+            }
+        }
+        //Returnera objektet som innehåller domäner och deras respektive räkningar
+        return domainCounts;
     }
 }
