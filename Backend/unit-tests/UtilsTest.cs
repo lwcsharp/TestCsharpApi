@@ -79,16 +79,15 @@ public static class UtilsTest
         var test = initialDb[0];
 
         Arr expectedRemovedUsers = Utils.RemoveMockUsers();
-        Arr expectedEmails = expectedRemovedUsers.Map(user => user.email);
         Arr expectedPasswords = expectedRemovedUsers.Map(user => user.password);
-        
-        Arr usersInDb = SQLQuery("SELECT email FROM users");
-        Arr emailsInDb = usersInDb.Map(user => user.email);
+
+        Arr usersInDb = SQLQuery("SELECT password FROM users");
+        Arr passwordsInDb = usersInDb.Map(user => user.password);
 
         //Kontrollera att ingen av de förväntade e-postadresserna finns kvar i databasen
-        foreach (var email in expectedEmails)
+        foreach (var password in expectedPasswords)
         {
-            Assert.DoesNotContain(email, emailsInDb);
+            Assert.DoesNotContain(password, passwordsInDb);
         }
 
         //Assert.True(expectedPasswords.Length > 0);
@@ -96,21 +95,21 @@ public static class UtilsTest
         //Kontrollera att inget lösenord finns kvar för de borttagna användarna
         foreach (var user in expectedRemovedUsers)
         {
-            if (!emailsInDb.Contains(user.email))
+            if (!passwordsInDb.Contains(user.email))
             {
                 Assert.True(user.HasKey("password"), $"Password should be included for user: {user.id}");
             }
             else
             {
                 Assert.Fail($"User ID:{user.id}, password should still exist in the database.");
-            }        
-        } 
-        
+            }
+        }
+
         //Kontrollera att det faktiska antalet användare efter borttagning stämmer
         int initialCount = initialDb.Count();
         int removedCount = expectedRemovedUsers.Count();
         int expectedCount = initialCount - removedCount;
-        Assert.Equal(expectedCount, usersInDb.Count());    
+        Assert.Equal(expectedCount, usersInDb.Count());
     }
 
     [Fact]

@@ -82,25 +82,12 @@ public static class Utils
             //UPDATE för skriva över data
             var result = SQLQueryOne(
                 @"UPDATE users SET
-                    created = NULL,
-                    email = NULL,
-                    firstname = NULL,
-                    lastname = NULL,
-                    role = NULL
-                    RETURNING *
+                    created = '*',
+                    email = '*',
+                    firstname = '*',
+                    lastname = '*',
+                    role = '*'
                 ", user);
-            //var result1 = SQLQueryOne(
-            //    @"REPLACE INTO users (created, email, firstname, lastname, role)
-            //    VALUES('*','x',NULL,null,'*')
-            //    ON CONFLICT (id,password)
-            //    DO UPDATE SET
-            //    created = excluded.created,
-            //    email = excluded.email,
-            //    firstname = excluded.firstname,
-            //    lastname = excluded.lastname,
-            //    role = excluded.role
-            //    "
-            //    );
 
             if (!result.HasKey("error"))
             {
