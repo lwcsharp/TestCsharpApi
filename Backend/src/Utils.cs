@@ -72,25 +72,38 @@ public static class Utils
         Arr removedUsersExclPassword = Arr();
         foreach (var user in mockUsers)
         {
+
             //user.created = null;
             //user.email = null;
             //user.firstName = null;
             //user.lastName = null;
             //user.role = null;
 
+            //UPDATE för skriva över data
             var result = SQLQueryOne(
                 @"UPDATE users SET
-                    created = '*',
+                    created = NULL,
                     email = NULL,
                     firstname = NULL,
                     lastname = NULL,
                     role = NULL
+                    RETURNING *
                 ", user);
-            //UPDATE för skriva över data
+            //var result1 = SQLQueryOne(
+            //    @"REPLACE INTO users (created, email, firstname, lastname, role)
+            //    VALUES('*','x',NULL,null,'*')
+            //    ON CONFLICT (id,password)
+            //    DO UPDATE SET
+            //    created = excluded.created,
+            //    email = excluded.email,
+            //    firstname = excluded.firstname,
+            //    lastname = excluded.lastname,
+            //    role = excluded.role
+            //    "
+            //    );
 
             if (!result.HasKey("error"))
             {
-                //user.Delete("password");
                 removedUsersExclPassword.Push(user);
             }
         }
