@@ -75,41 +75,37 @@ public static class UtilsTest
     [Fact]
     public static void TestRemoveMockUsers()
     {
-        Arr initialDb = SQLQuery("SELECT * FROM users");
-        var test = initialDb[0];
+        string query = $"SELECT * FROM users";
 
+        Arr initialDb = SQLQuery(query);
+        Utils.CreateMockUsers();
+        Arr mockusersInDb = SQLQuery(query);
         Arr expectedRemovedUsers = Utils.RemoveMockUsers();
-        Arr expectedPasswords = expectedRemovedUsers.Map(user => user.password);
+        Arr expectedUsersInDb = SQLQuery(query);
 
-        Arr usersInDb = SQLQuery("SELECT password FROM users");
-        Arr passwordsInDb = usersInDb.Map(user => user.password);
-
-        //Kontrollera att ingen av de förväntade e-postadresserna finns kvar i databasen
-        foreach (var password in expectedPasswords)
-        {
-            Assert.DoesNotContain(password, passwordsInDb);
-        }
-
-        //Assert.True(expectedPasswords.Length > 0);
-
-        //Kontrollera att inget lösenord finns kvar för de borttagna användarna
+        //Kontrollera att expectedUsersInDb inte innehåller emails från expectedRemovedUsers
         foreach (var user in expectedRemovedUsers)
         {
-            if (!passwordsInDb.Contains(user.email))
+            //Assert.True(!expectedUsersInDb.Contains(user.email));
+
+            if (!expectedUsersInDb.Contains(user.email))
             {
-                Assert.True(user.HasKey("password"), $"Password should be included for user: {user.id}");
+                Assert.True(true, "Succeed.");
             }
             else
             {
-                Assert.Fail($"User ID:{user.id}, password should still exist in the database.");
+                Assert.Fail("Failed.");
             }
         }
 
         //Kontrollera att det faktiska antalet användare efter borttagning stämmer
-        int initialCount = initialDb.Count();
+        int initialDbCount = initialDb.Count();
+        int mockusersInDbCount = mockusersInDb.Count();
         int removedCount = expectedRemovedUsers.Count();
-        int expectedCount = initialCount - removedCount;
-        Assert.Equal(expectedCount, usersInDb.Count());
+        int usersInDbCount = expectedUsersInDb.Count();
+        int expectedCount = mockusersInDbCount - removedCount;
+        Assert.Equal(expectedCount, initialDbCount);
+        Assert.Equal(initialDbCount, usersInDbCount);
     }
 
     [Fact]
