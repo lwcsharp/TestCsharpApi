@@ -75,16 +75,49 @@ public static class UtilsTest
     [Fact]
     public static void TestRemoveMockUsers()
     {
+        Arr initialDb = SQLQuery("SELECT * FROM users");
+        var test = initialDb[0];
+
+        Arr expectedRemovedUsers = Utils.RemoveMockUsers();
+        Arr expectedEmails = expectedRemovedUsers.Map(user => user.email);
+        Arr expectedPasswords = expectedRemovedUsers.Map(user => user.password);
+        
         Arr usersInDb = SQLQuery("SELECT email FROM users");
         Arr emailsInDb = usersInDb.Map(user => user.email);
-        Arr mockUsersNotInDb = mockUsers.Filter( mockUser => !emailsInDb.Contains(mockUser.email));
-        var result = Utils.RemoveMockUsers();
+
+        //Kontrollera att ingen av de förväntade e-postadresserna finns kvar i databasen
+        foreach (var email in expectedEmails)
+        {
+            Assert.DoesNotContain(email, emailsInDb);
+        }
+
+        //Assert.True(expectedPasswords.Length > 0);
+
+        //Kontrollera att inget lösenord finns kvar för de borttagna användarna
+        foreach (var user in expectedRemovedUsers)
+        {
+            if (!emailsInDb.Contains(user.email))
+            {
+                Assert.True(user.HasKey("password"), $"Password should be included for user: {user.id}");
+            }
+            else
+            {
+                Assert.Fail($"User ID:{user.id}, password should still exist in the database.");
+            }        
+        } 
+        
+        //Kontrollera att det faktiska antalet användare efter borttagning stämmer
+        int initialCount = initialDb.Count();
+        int removedCount = expectedRemovedUsers.Count();
+        int expectedCount = initialCount - removedCount;
+        Assert.Equal(expectedCount, usersInDb.Count());    
     }
 
     [Fact]
     public static void TestCountDomainsFromUserEmails()
     {
         var expectedResult = Utils.CountDomainsFromUserEmails();
+
         Arr query = SQLQuery(
             @"SELECT SUBSTR(email, INSTR(email, '@')+1) AS domains,
             COUNT(*) AS counts

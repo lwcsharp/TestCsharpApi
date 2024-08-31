@@ -69,16 +69,28 @@ public static class Utils
 
     public static Arr RemoveMockUsers()
     {
-        CreateMockUsers();
         Arr removedUsersExclPassword = Arr();
         foreach (var user in mockUsers)
         {
+            //user.created = null;
+            //user.email = null;
+            //user.firstName = null;
+            //user.lastName = null;
+            //user.role = null;
+
             var result = SQLQueryOne(
-                @"DELETE FROM users", user);      
+                @"UPDATE users SET
+                    created = '*',
+                    email = NULL,
+                    firstname = NULL,
+                    lastname = NULL,
+                    role = NULL
+                ", user);
+            //UPDATE för skriva över data
 
             if (!result.HasKey("error"))
             {
-                user.Delete("password");
+                //user.Delete("password");
                 removedUsersExclPassword.Push(user);
             }
         }
