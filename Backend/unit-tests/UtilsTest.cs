@@ -59,8 +59,7 @@ public static class UtilsTest
         Arr emailsInDb = usersInDb.Map(user => user.email);
         // Only keep the mock users not already in db
         Arr mockUsersNotInDb = mockUsers.Filter(
-            mockUser => !emailsInDb.Contains(mockUser.email)
-        );
+            mockUser => !emailsInDb.Contains(mockUser.email));
         // Get the result of running the method in our code
         var result = Utils.CreateMockUsers();
         // Assert that the CreateMockUsers only return
@@ -75,9 +74,14 @@ public static class UtilsTest
     [Fact]
     public static void TestRemoveMockUsers()
     {
-        var expectedRemovedUsers = Utils.RemoveMockUsers();
+        var expectedRemovedUsers = Utils.RemoveMockUsers(); //1000users
+        var expectedUsersInDb = SQLQuery($"SELECT * FROM users"); //99users
 
-        //Kontrollera att expectedRemovedUsers inte innehåller emails från mockUsers
+        //Kontrollera att expectedUsersInDb inte innehåller emails från expectedRemovedUsers
+        foreach (var user in expectedRemovedUsers)
+        {
+            Assert.True(!expectedUsersInDb.Contains(user.email));
+        }
         Assert.Equivalent(expectedRemovedUsers, mockUsers);
     }
 
@@ -90,8 +94,7 @@ public static class UtilsTest
             @"SELECT SUBSTR(email, INSTR(email, '@')+1) AS domains,
             COUNT(*) AS counts
             FROM users
-            GROUP BY domains
-            ;"
+            GROUP BY domains;"
         );
 
         //Lagra SQL-resultatet i objekt
@@ -103,8 +106,8 @@ public static class UtilsTest
 
             if (domains != null)
             {
-            //Lägg till domänen & dess räknare i resultatobjektet
-            result[domains] = counts;
+                //Lägg till domänen & dess räknare i resultatobjektet
+                result[domains] = counts;
             }
         }
         //Assert.Equal>> result ≠ expectedResult -> sorterad vs osorterad ej jämförtbart 

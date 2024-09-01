@@ -89,7 +89,7 @@ public static class Utils
     {
         //Skapa ett nytt objekt för att lagra domänräkningarna
         Obj domainCounts = Obj();
-        
+
         //Lagra alla användare från DB i lista av användarobjekt
         Arr usersInDB = SQLQuery(
             @"SELECT email
@@ -99,8 +99,8 @@ public static class Utils
         foreach (var user in usersInDB)
         {
             string email = user.email;
-            string domain = email.Substring(email.IndexOf('@')+1); //+1, metoden börjar extrahera från tecknet efter @ >> index = 0
-            
+            string domain = email.Substring(email.IndexOf('@') + 1); //+1, metoden börjar extrahera från tecknet efter @ >> index = 0
+
             //Kontrollera om denna domän redan finns i domainCounts
             if (domainCounts.HasKey(domain))
             {
