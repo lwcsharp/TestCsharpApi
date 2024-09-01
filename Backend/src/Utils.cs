@@ -57,11 +57,14 @@ public static class Utils
             ", user);
             // If we get an error from the DB then we haven't added
             // the mock users, if not we have so add to the successful list
-            if (!result.HasKey("error"))
+            if (result != null)
             {
-                // The specification says return the user list without password
-                user.Delete("password");
-                successFullyWrittenUsers.Push(user);
+                if (!result.HasKey("error"))
+                {
+                    // The specification says return the user list without password
+                    user.Delete("password");
+                    successFullyWrittenUsers.Push(user);
+                }
             }
         }
         return successFullyWrittenUsers;
@@ -75,10 +78,13 @@ public static class Utils
             string queryStr = $"DELETE FROM users WHERE email = '{user.email}'";
             var result = SQLQueryOne(queryStr);
 
-            if (!result.HasKey("error"))
+            if (result != null)
             {
-                user.Delete("password");
-                removedUsersExclPassword.Push(user);
+                if (!result.HasKey("error"))
+                {
+                    user.Delete("password");
+                    removedUsersExclPassword.Push(user);
+                }
             }
         }
         return removedUsersExclPassword;
