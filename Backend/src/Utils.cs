@@ -50,21 +50,18 @@ public static class Utils
         Arr successFullyWrittenUsers = Arr();
         foreach (var user in mockUsers)
         {
-            // user.password = "12345678";
+            user.password = "12345678";
             var result = SQLQueryOne(
                 @"INSERT INTO users(firstName,lastName,email,password)
                 VALUES($firstName, $lastName, $email, $password)
             ", user);
             // If we get an error from the DB then we haven't added
             // the mock users, if not we have so add to the successful list
-            if (result != null)
+            if (!result.HasKey("error"))
             {
-                if (!result.HasKey("error"))
-                {
-                    // The specification says return the user list without password
-                    user.Delete("password");
-                    successFullyWrittenUsers.Push(user);
-                }
+                // The specification says return the user list without password
+                user.Delete("password");
+                successFullyWrittenUsers.Push(user);
             }
         }
         return successFullyWrittenUsers;
@@ -73,18 +70,16 @@ public static class Utils
     public static Arr RemoveMockUsers()
     {
         Arr removedUsersExclPassword = Arr();
+
         foreach (var user in mockUsers)
         {
-            string queryStr = $"DELETE FROM users WHERE email = '{user.email}'";
-            var result = SQLQueryOne(queryStr);
+            var query = $"DELETE FROM users WHERE email = '{user.email}'";
+            var result = SQLQueryOne(query);
 
-            if (result != null)
+            if (!result.HasKey("error"))
             {
-                if (!result.HasKey("error"))
-                {
-                    user.Delete("password");
-                    removedUsersExclPassword.Push(user);
-                }
+                user.Delete("password");
+                removedUsersExclPassword.Push(user);
             }
         }
         return removedUsersExclPassword;
